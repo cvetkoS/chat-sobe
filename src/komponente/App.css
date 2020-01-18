@@ -1,0 +1,30 @@
+html,
+body,
+.app {
+  height: 100vh;
+  background-color: #ececec;
+}
+
+
+/* Messages.js */
+/* .messages {
+  height: 510px;
+  max-width: 100% !important;
+  overflow-y: scroll;
+} */
+
+/* MessageForm.js */
+/* .message__form {
+  position: fixed !important;
+  bottom: 1em;
+  margin-left: 320px !important;
+  padding-bottom: 0;
+  left: 0;
+  right: 1em;
+  z-index: 200;
+}
+
+.message__self {
+  border-left: 2px solid orange;
+  padding-left: 8px;
+} */
