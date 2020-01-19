@@ -13,7 +13,7 @@ class Registracija extends React.Component {
     potvrdaSifre: '',
     greske: [],
     ucitavanje: false,
-    referencaKorisika: firebase.database().ref("korisnici")
+    referencaKorisnika: firebase.database().ref("korisnici")
 	};
 	handleChange = event => {
 		this.setState({ [event.target.name]: event.target.value });

@@ -125,7 +125,7 @@ class Sobe extends React.Component {
     return (
       // React.Fragment is used for grouping 2 components into 1
       <React.Fragment>
-        <Menu.Menu style={{ position: 'absolute', top: '130px', left: '0', width: '100%', paddingBottom: '2em' }}>
+        <Menu.Menu style={{ position: 'absolute', top: '140px', left: '0', width: '100%', paddingBottom: '2em' }}>
           <Menu.Item style={{ color: 'white', paddingBottom: '11px' }}>
             <span>
               <Icon name="exchange" /> Sobe{' '}
