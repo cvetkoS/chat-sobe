@@ -4,7 +4,7 @@ import { Segment, Header, Input, Icon } from 'semantic-ui-react';
 class HeaderPoruke extends React.Component {
   render() {
 
-    const { imeSobe, brojJedinstvenihKorisnika } = this.props;
+    const { imeSobe, brojJedinstvenihKorisnika, handleSearchChange, searchLoading } = this.props;
 
     return(
       //Clearing is for clearing floats (clearfix)
@@ -20,9 +20,11 @@ class HeaderPoruke extends React.Component {
         {/* Room Search Input */}
         <Header floated="right" style={{ marginLeft: 'auto'}}>
           <Input
+            onChange={handleSearchChange}
+            loading={searchLoading}
             size="mini"
             icon="search"
-            name="searchTerm"
+            name="vrednostPretrage"
             placeholder="Pretraži poruke"
           />
         </Header>

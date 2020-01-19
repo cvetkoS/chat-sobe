@@ -13,7 +13,10 @@ class Poruke extends React.Component {
     porukeSeUcitavaju: true,
     soba: this.props.trenutnaSoba,
     korisnik: this.props.trenutniKorisnik,
-    brojJedinstvenihKorisnika: ''
+    brojJedinstvenihKorisnika: '',
+    vrednostPretrage: '',
+    searchLoading: false,
+    rezultatiPretrage: []
   }
 
   componentDidMount = () => {
@@ -40,6 +43,26 @@ class Poruke extends React.Component {
     });
   };
 
+  handleSearchChange = event => {
+    this.setState({
+      vrednostPretrage: event.target.value,
+      searchLoading: true
+    }, () => this.handleSearchMessages());
+  }
+
+  handleSearchMessages = () => {
+    const porukeUSobi = [...this.state.poruke];
+    const regex = new RegExp(this.state.vrednostPretrage, 'gi');
+    const rezultatiPretrage = porukeUSobi.reduce((akumulator, poruka) => {
+      if((poruka.sadrzaj && poruka.sadrzaj.match(regex)) || poruka.korisnik.ime.match(regex)) {
+        akumulator.push(poruka);
+      }
+      return akumulator;
+    }, []);
+    this.setState({ rezultatiPretrage });
+    setTimeout(() => this.setState({ searchLoading: false }), 1000);
+  }
+
   prebrojJedinstveneKorisnike = poruke => {
     const jedinstveniKorisnici = poruke.reduce((akumulator, poruka) => {
       if(!akumulator.includes(poruka.korisnik.ime)) {
@@ -65,17 +88,19 @@ class Poruke extends React.Component {
   prikaziImeSobe = soba => soba ? `#${soba.ime}`: '';
 
   render() {
-    const { referencaPoruke, poruke, soba, korisnik, brojJedinstvenihKorisnika } = this.state;
+    const { referencaPoruke, poruke, soba, korisnik, brojJedinstvenihKorisnika, vrednostPretrage, rezultatiPretrage, searchLoading } = this.state;
 
     return (
       <React.Fragment>
         <HeaderPoruke
           imeSobe={this.prikaziImeSobe(soba)}
-          brojJedinstvenihKorisnika={brojJedinstvenihKorisnika} />
+          brojJedinstvenihKorisnika={brojJedinstvenihKorisnika}
+          handleSearchChange={this.handleSearchChange}
+          searchLoading={searchLoading} />
 
         <Segment>
           <Comment.Group className="poruke">
-            {this.prikaziPoruke(poruke)}
+            { vrednostPretrage ? this.prikaziPoruke(rezultatiPretrage) : this.prikaziPoruke(poruke)}
           </Comment.Group>
         </Segment>
 
